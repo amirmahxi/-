@@ -1,0 +1,25 @@
+# ================================================================
+#  robots.txt — tells Google which pages it may crawl & index.
+#
+#  You can safely leave this file exactly as-is on a free host.
+#
+#  ⚠️ THE ONE LINE YOU MUST EDIT:
+#  After you deploy, replace https://amirmahdi.dev/ below with your
+#  free host's URL. Examples:
+#    - Netlify       → https://yourname.netlify.app/
+#    - GitHub Pages  → https://yourname.github.io/
+#    - Vercel        → https://yourname.vercel.app/
+#    - Cloudflare    → https://yourname.pages.dev/
+#
+#  If you keep the slash "/" version (a relative sitemap path), most
+#  hosts accept it too — but the absolute URL is safest.
+# ================================================================
+
+User-agent: *
+Allow: /
+
+# Performance / asset files we never want indexed:
+Disallow: /assets/*.svg-previews/
+
+# Tell Google where your sitemap lives (swap URL after deploying):
+Sitemap: https://amirmahdi.dev/sitemap.xml

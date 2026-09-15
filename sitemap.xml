@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ================================================================
+  sitemap.xml — the file Google uses to discover every page of your
+  site. One <url> entry per HTML page.
+
+  ⚠️ EDIT BEFORE OR AFTER DEPLOYING:
+  Replace https://amirmahdi.dev below with your real free-host URL:
+    - Netlify       → https://yourname.netlify.app
+    - GitHub Pages  → https://yourname.github.io
+    - Vercel        → https://yourname.vercel.app
+    - Cloudflare    → https://yourname.pages.dev
+  You only NEED to edit the <loc> lines to add your hostname. The
+  <lastmod>, <changefreq> and <priority> hints are polish — leave
+  them or adjust freely.
+
+  Tip: if you host on Netlify, you can point your search engine
+  submission at /sitemap.xml and Netlify serves this file as-is.
+================================================================ -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://amirmahdi.dev/</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://amirmahdi.dev/case-study.html</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>

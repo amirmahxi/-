@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!-- ================================================================
+  amirmahdi — Developer Portfolio (dark / terminal theme)
+
+  IMPLEMENTATION NOTES
+  ================================================================
+  STACK
+  - Zero-dependency vanilla HTML + CSS + JS. No build step, no
+    package.json, no framework. Serving via `python -m http.server`
+    (see .claude/launch.json) or any static host works as-is.
+
+  DATA & CUSTOMIZATION
+  - All content lives in the single `DATA` object at the top of
+    main.js: profile, typingRoles, links, socials, tech, projects,
+    timeline, articles, github, contact.
+  - To add a project: add one object to DATA.projects with the same
+    fields (id, title, tagline, description, mockup, alt, tech[],
+    github, demo, stars, outcome, caseStudy). The ProjectGrid and
+    case-study page pick it up automatically.
+  - To add a skill: add { name, icon, status } to a category array
+    in DATA.tech. `status: "learning"` renders a small pill.
+  - To swap a social: edit DATA.socials ({ id, href }). Icon ids
+    live in the ICONS map in main.js.
+
+  REUSABLE COMPONENTS (one template per array)
+  - The page is static HTML shells; main.js `render()` fills each
+    <section data-render="..."> from DATA on DOMContentLoaded.
+  - render() is idempotent: it rebuilds the section content from
+    DATA each call, so sources of truth stay in ONE place.
+
+  RESPONSIVE BREAKPOINTS
+  - Mobile  : < 640px   (single column, hamburger menu takes over)
+  - Tablet  : 640-1023  (2-column grids)
+  - Desktop : >= 1024   (3-column project grid, hero 2-col text|terminal)
+
+  SEO
+  - Title/description/keywords target "developer portfolio",
+    "full-stack developer portfolio", "Claude Code portfolio".
+  - OpenGraph + Twitter cards + JSON-LD Person schema included below.
+  - Exactly one <h1>; one <h2> per section; nav uses real #fragments.
+
+  ACCESSIBILITY
+  - Skip link, role=region + aria-labelledby per section, focus
+    rings, aria-live for typing role + form status, reduced-motion
+    support. See styles.css and main.js.
+
+  DEPLOYMENT
+  - Push index.html, case-study.html, styles.css, main.js and
+    assets/ to any static host (Vercel, Netlify, Cloudflare Pages,
+    GitHub Pages). No build command needed.
+  - Porting to React/Next.js/Astro: move DATA to typed props or a
+    data module; replace scroll-reveal/typewriter with your library
+    of choice; map case-study.html?id=<id> to a dynamic route
+    [id].tsx; <head> tags become framework metadata exports.
+================================================================ -->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>amirmahdi — Full-Stack Developer Portfolio | Frontend &amp; Backend</title>
+
+  <!-- Primary SEO -->
+  <meta name="description"
+        content="Portfolio of amirmahdi — a full-stack developer in training, building frontend & backend projects, case studies, and writing about what I learn. Developer portfolio built by Claude Code." />
+  <meta name="author" content="amirmahdi" />
+  <meta name="keywords"
+        content="developer portfolio, full-stack developer portfolio, Claude Code portfolio, frontend developer, backend developer, projects, case studies" />
+  <link rel="canonical" href="https://amirmahdi.dev/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="amirmahdi.dev" />
+  <meta property="og:title" content="amirmahdi — Developer Portfolio" />
+  <meta property="og:description"
+        content="Frontend & backend projects, case studies, and write-ups of a curious developer building in public." />
+  <meta property="og:url" content="https://amirmahdi.dev/" />
+  <meta property="og:image" content="https://amirmahdi.dev/assets/og-cover.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="amirmahdi — Developer Portfolio" />
+  <meta name="twitter:description"
+        content="Frontend & backend projects, case studies, and write-ups of a curious developer building in public." />
+  <meta name="twitter:image" content="https://amirmahdi.dev/assets/og-cover.svg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles-colorful.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "amirmahdi",
+    "url": "https://amirmahdi.dev",
+    "jobTitle": "Full-Stack Developer (in training)",
+    "sameAs": [
+      "https://github.com/amirmahdi",
+      "https://linkedin.com/in/amirmahdi",
+      "https://twitter.com/amirmahdi"
+    ],
+    "knowsAbout": [
+      "JavaScript", "TypeScript", "React", "Node.js",
+      "Python", "Go", "SQL", "Docker"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="site-header">
+    <a class="logo" href="#top" aria-label="amirmahdi — home">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="#fff5eb"/>
+        <rect width="64" height="64" rx="14" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+        <path d="M18 40 L28 25 L38 40" fill="none" stroke="#ff6b6b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M34 40 L48 25" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">amirmahdi<span class="logo-cursor">_</span></span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#skills">Skills</a>
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#open-source">Open Source</a>
+      <a class="nav-link" href="#blog">Blog</a>
+      <a class="nav-link" href="#timeline">Timeline</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+
+    <button class="burger" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="overlay" id="overlay" hidden></div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="#about" class="menu-link">About</a>
+    <a href="#skills" class="menu-link">Skills</a>
+    <a href="#projects" class="menu-link">Projects</a>
+    <a href="#open-source" class="menu-link">Open Source</a>
+    <a href="#blog" class="menu-link">Blog</a>
+    <a href="#timeline" class="menu-link">Timeline</a>
+    <a href="#contact" class="menu-link">Contact</a>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-greeting">&gt; hello, world<span class="cursor">_</span></p>
+          <h1 class="hero-title" id="hero-title">Hi, I'm <span class="hero-name">amirmahdi</span></h1>
+          <p class="hero-role" aria-live="polite">
+            <span class="hero-role-label">I'm a</span>
+            <span class="hero-role-swap" id="typing-role">Frontend Learner</span>
+          </p>
+          <p class="hero-intro">
+            A curious developer learning frontend &amp; backend, building things in public,
+            and writing about what I learn. Based remotely.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-ghost" href="assets/resume.pdf" download>Download Resume</a>
+          </div>
+
+          <ul class="hero-socials" id="hero-socials" aria-label="Social links"></ul>
+        </div>
+
+        <!-- Terminal decoration -->
+        <div class="term" aria-hidden="true">
+          <div class="term-bar">
+            <span class="term-dot term-dot--red"></span>
+            <span class="term-dot term-dot--yellow"></span>
+            <span class="term-dot term-dot--green"></span>
+            <span class="term-title">bash — ~/portfolio</span>
+          </div>
+          <pre class="term-body"><code><span class="tok-com"># who am i?</span>
+<span class="tok-fn">$</span> whoami
+<span class="tok-out">amirmahdi</span>
+<span class="tok-com"># what am i building?</span>
+<span class="tok-fn">$</span> cat goals.txt
+<span class="tok-out">- ship projects in public</span>
+<span class="tok-out">- learn something daily</span>
+<span class="tok-out">- write what i learn</span>
+<span class="tok-fn">$</span> <span class="tok-cursor">█</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about" aria-labelledby="about-title" data-render="about">
+      <div class="section-head">
+        <h2 id="about-title"><span class="h2-marker">01.</span> About</h2>
+        <p class="section-sub">who I am</p>
+      </div>
+      <div class="about-body">
+        <div data-render="about-copy"></div>
+        <div data-render="about-stats"></div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="section-head">
+        <h2 id="skills-title"><span class="h2-marker">02.</span> Skills</h2>
+        <p class="section-sub">what I use (and am learning)</p>
+      </div>
+      <div class="skills-grid" data-render="skills"></div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <h2 id="projects-title"><span class="h2-marker">03.</span> Projects</h2>
+        <p class="section-sub">things I've built &amp; learned from</p>
+      </div>
+      <div class="projects-grid" data-render="projects"></div>
+    </section>
+
+    <!-- ============ OPEN SOURCE ============ -->
+    <section class="section" id="open-source" aria-labelledby="oss-title">
+      <div class="section-head">
+        <h2 id="oss-title"><span class="h2-marker">04.</span> Open Source</h2>
+        <p class="section-sub">contributions &amp; activity</p>
+      </div>
+      <div data-render="oss"></div>
+    </section>
+
+    <!-- ============ BLOG ============ -->
+    <section class="section" id="blog" aria-labelledby="blog-title">
+      <div class="section-head">
+        <h2 id="blog-title"><span class="h2-marker">05.</span> Blog</h2>
+        <p class="section-sub">recent articles</p>
+      </div>
+      <div class="articles-grid" data-render="articles"></div>
+    </section>
+
+    <!-- ============ EXPERIENCE / TIMELINE ============ -->
+    <section class="section" id="timeline" aria-labelledby="timeline-title">
+      <div class="section-head">
+        <h2 id="timeline-title"><span class="h2-marker">06.</span> Learning Milestones</h2>
+        <p class="section-sub">my journey so far</p>
+      </div>
+      <ol class="timeline" data-render="timeline"></ol>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section-contact" id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <h2 id="contact-title"><span class="h2-marker">07.</span> Contact</h2>
+        <p class="section-sub">let's talk</p>
+      </div>
+      <div class="contact-body">
+        <div class="contact-info">
+          <h3>Interested in working together?</h3>
+          <p>Open to freelance, internship, and full-time roles.</p>
+          <a class="contact-email" href="mailto:hello@amirmahdi.dev" data-render="contact-email">hello@amirmahdi.dev</a>
+          <p class="contact-response" data-render="contact-response">I usually reply within 48 hours.</p>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required></textarea>
+          </div>
+          <p class="form-status" id="form-status" aria-live="polite" role="status"></p>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span data-render="year"></span> amirmahdi — built with <span class="footer-heart">♥</span> &amp; Claude Code</p>
+    <p class="footer-meta">HTML · CSS · Vanilla JS — no build step</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

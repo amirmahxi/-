@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- ================================================================
+  case-study.html — reusable single template
+  Reads ?id=<project-id> from the URL, resolves it against
+  DATA.projects in main.js, and renders the project's caseStudy.
+    - One file serves every project (content lives in DATA).
+    - Unknown / missing id falls back to the first project.
+    - Porting to React/Next.js: replace with a dynamic route
+      /projects/[id] where the caseStudy maps to a component.
+================================================================ -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Case Study — amirmahdi</title>
+
+  <meta name="description" content="A detailed case study of a project built by amirmahdi." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="amirmahdi.dev" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles-colorful.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="case-body">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="logo" href="index.html#top" aria-label="amirmahdi — home">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="#fff5eb"/>
+        <rect width="64" height="64" rx="14" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+        <path d="M18 40 L28 25 L38 40" fill="none" stroke="#ff6b6b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M34 40 L48 25" fill="none" stroke="#a855f7" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">amirmahdi<span class="logo-cursor">_</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="index.html#about">About</a>
+      <a class="nav-link" href="index.html#projects">Projects</a>
+      <a class="nav-link" href="index.html#blog">Blog</a>
+      <a class="nav-link" href="index.html#contact">Contact</a>
+    </nav>
+    <button class="burger" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="index.html#about" class="menu-link">About</a>
+    <a href="index.html#projects" class="menu-link">Projects</a>
+    <a href="index.html#blog" class="menu-link">Blog</a>
+    <a href="index.html#contact" class="menu-link">Contact</a>
+  </div>
+
+  <main id="main" class="case-main" data-render="case-study"></main>
+
+  <footer class="site-footer">
+    <p>&copy; <span data-render="year"></span> amirmahdi</p>
+    <p class="footer-meta"><a href="index.html">← back to portfolio</a></p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
