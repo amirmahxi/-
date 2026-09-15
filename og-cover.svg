@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0b0f0b"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.12"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#9ae66e" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <text x="90" y="210" font-family="Consolas, monospace" font-size="64" fill="#565f56">&gt;</text>
+  <text x="150" y="212" font-family="Consolas, monospace" font-size="64" font-weight="bold" fill="#9ae66e">amirmahdi</text>
+  <text x="760" y="212" font-family="Consolas, monospace" font-size="64" fill="#7fffd4" opacity="0.85">developer</text>
+  <text x="90" y="330" font-family="Consolas, monospace" font-size="34" fill="#8e9a8e">Full-Stack Developer in training</text>
+  <text x="90" y="392" font-family="Consolas, monospace" font-size="34" fill="#8e9a8e">Building in public &amp; writing what I learn</text>
+  <rect x="90" y="460" width="14" height="14" fill="#ff5f56"/>
+  <rect x="116" y="460" width="14" height="14" fill="#ffbd2e"/>
+  <rect x="142" y="460" width="14" height="14" fill="#27c93f"/>
+  <text x="180" y="474" font-family="Consolas, monospace" font-size="30" fill="#565f56">~/portfolio</text>
+</svg>

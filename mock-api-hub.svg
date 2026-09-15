@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#10150f"/>
+  <rect x="0" y="0" width="640" height="34" fill="#171d16"/>
+  <circle cx="20" cy="17" r="6" fill="#ff5f56"/>
+  <circle cx="40" cy="17" r="6" fill="#ffbd2e"/>
+  <circle cx="60" cy="17" r="6" fill="#27c93f"/>
+  <text x="92" y="24" font-family="Consolas, monospace" font-size="15" fill="#8e9a8e">GET /api/v1/ping — 200 OK</text>
+  <text x="20" y="76" font-family="Consolas, monospace" font-size="17" fill="#9ae66e">&gt; curl https://api.hub.test/users</text>
+  <text x="20" y="108" font-family="Consolas, monospace" font-size="17" fill="#d6dcd6">[</text>
+  <text x="40" y="140" font-family="Consolas, monospace" font-size="17" fill="#7fffd4">  { "name": "amirmahdi", "role": "builder" },</text>
+  <text x="40" y="172" font-family="Consolas, monospace" font-size="17" fill="#7fffd4">  { "name": "claude", "role": "copilot" }</text>
+  <text x="20" y="204" font-family="Consolas, monospace" font-size="17" fill="#d6dcd6">]</text>
+  <text x="20" y="252" font-family="Consolas, monospace" font-size="17" fill="#8e9a8e"># latency: 42ms · status: 200</text>
+  <rect x="20" y="286" width="180" height="34" rx="6" fill="#9ae66e"/>
+  <text x="38" y="309" font-family="Consolas, monospace" font-size="16" fill="#0b0f0b">Run request</text>
+  <rect x="220" y="286" width="150" height="34" rx="6" fill="none" stroke="#2a332a" stroke-width="2"/>
+  <text x="238" y="309" font-family="Consolas, monospace" font-size="16" fill="#8e9a8e">Import curl</text>
+</svg>
